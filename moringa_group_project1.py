@@ -313,7 +313,7 @@ normal_beds.plot.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(20,10
 normal_beds = normal_beds.set_index('county')
 st.write(normal_beds)
 chart_data = pd.DataFrame(normal_beds,columns=['bed_ratio_per_10000pop'])
-st.bar_chart(chart_data)
+st.bar_chart(chart_data, width=10, height=10)
 
 """Kwale county lies slightly below the acceptable number of beds per 10000 population(5 beds per 10000 population). This is in accordance with World Health Organization report."""
 
