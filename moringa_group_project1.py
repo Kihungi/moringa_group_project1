@@ -310,6 +310,9 @@ normal_beds['bed_ratio_per_10000pop'] = normal_beds['no_of_beds'] * 10000 * 1.0 
 normal_beds.sort_values(by='bed_ratio_per_10000pop', ascending=1).head()
 
 normal_beds.plot.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(20,10))
+plt.title('Number of Beds Per 10000 Population')
+plt.countylabel('county')
+plt.bed_ratio_per_10000poplabel('bed_ratio_per_10000pop')
 normal_beds = normal_beds.set_index('county')
 st.write(normal_beds)
 chart_data = pd.DataFrame(normal_beds,columns=['bed_ratio_per_10000pop'])
