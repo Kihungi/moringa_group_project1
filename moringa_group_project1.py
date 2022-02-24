@@ -309,7 +309,7 @@ normal_beds.sort_values(by='no_of_beds', ascending=False).head()
 normal_beds['bed_ratio_per_10000pop'] = normal_beds['no_of_beds'] * 10000 * 1.0 / normal_beds['total_population']
 normal_beds.sort_values(by='bed_ratio_per_10000pop', ascending=1).head()
 
-plt.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(20,10))
+normal_beds.plot.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(20,10))
 x = normal_beds['county']
 y = normal_beds['bed_ratio_per_10000pop']
 plt.plot(x, y) 
@@ -440,6 +440,7 @@ print(priv_count)
 # Visualize all types of hospitals on graph
 hos_types = hospitals['owner'].value_counts()
 hos_types.plot.bar(grid=True)
+
 st.bar_chart(hos_types)
 
 # visualize types of government hospitals on a bar graph.
