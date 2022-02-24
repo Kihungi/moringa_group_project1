@@ -310,7 +310,9 @@ normal_beds['bed_ratio_per_10000pop'] = normal_beds['no_of_beds'] * 10000 * 1.0 
 normal_beds.sort_values(by='bed_ratio_per_10000pop', ascending=1).head()
 
 normal_beds.plot.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(20,10))
-plt.plot(x=['county'], y=['bed_ratio_per_10000pop'])
+x = np.array(['county'])
+y = np.array(['bed_ratio_per_10000pop'])
+plt.plot(x, y) 
 plt.title('Number of Beds Per 10000 Population')
 plt.xlabel('county')
 plt.ylabel('bed_ratio_per_10000pop')
@@ -341,9 +343,9 @@ no_of_hospitals['hospital_pop_ratio'] = no_of_hospitals['no_of_hospitals']*1.0/ 
 no_of_hospitals.sort_values(by='hospital_pop_ratio', ascending=1).head()
 
 no_of_hospitals.plot.bar('county', 'hospital_pop_ratio', width=1, figsize=(15,9), grid=True)
-normal_beds = normal_beds.set_index('county')
-st.write(normal_beds)
-chart_data = pd.DataFrame(normal_beds,columns=['hospital_pop_ratio'])
+no_of_hospitals = no_of_hospitals.set_index('county')
+st.write(no_of_hospitals)
+chart_data = pd.DataFrame(no_of_hospitals,columns=['hospital_pop_ratio'])
 st.bar_chart(chart_data)
 
 """iii.) Find the county with lowest number of core_health_workforce_per_10,000_population."""
@@ -353,7 +355,11 @@ st.bar_chart(chart_data)
 # Add the column core_health_workforce_per_10,000_population to the no_of_hospitals dataframe.
 no_of_hospitals.sort_values(by='core_health_workforce_per_10,000_population', ascending=1).head()
 no_of_hospitals.plot.bar('county', 'core_health_workforce_per_10,000_population', width=1, figsize=(15,9), grid=True)
-st.bar_chart(no_of_hospitals)
+no_of_hospitals = no_of_hospitals.set_index('county')
+st.write(no_of_hospitals)
+chart_data = pd.DataFrame(no_of_hospitals,columns=['core_health_workforce_per_10,000_population'])
+st.bar_chart(chart_data)
+
 """The minimum number of healthworkforce as stated by WHO is a minimum of 4.45 healthworkers for 10000 population. This criteria has been met successfully with Mandera having the least ratio of 5.2. """
 
 no_of_hospitals['healthworker_to_pop_ratio'] = 10000/ no_of_hospitals['core_health_workforce_per_10,000_population']
@@ -368,7 +374,6 @@ opened_24_hrs = hospitals[hospitals['open_24_hours'].map(lambda open_24_hours: '
 opened_24_hrs = opened_24_hrs.groupby(['county', 'total_population'], as_index=False)[['open_24_hours']].count()
 opened_24_hrs.sort_values(by='open_24_hours', ascending=1).head()
 opened_24_hrs.plot.bar('county', 'open_24_hours', width=1, figsize=(15,9), grid=True)
-st.bar_chart(opened_24_hrs)
 
 """Nairobi has the largest number of hospitals opening 24hrs. Lamu has the least number of hospitals that can attend to night emergencies.
 
