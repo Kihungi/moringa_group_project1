@@ -311,7 +311,7 @@ normal_beds.sort_values(by='bed_ratio_per_10000pop', ascending=1).head()
 
 normal_beds.plot.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(20,10))
 
-st.bar_chart()
+st.bar_chart(data=normal_beds)
 
 """Kwale county lies slightly below the acceptable number of beds per 10000 population(5 beds per 10000 population). This is in accordance with World Health Organization report."""
 
