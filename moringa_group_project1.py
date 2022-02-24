@@ -42,7 +42,7 @@ if uploaded_file is not None:
    hospitals = pd.read_csv(uploaded_file)
    st.write(hospitals)
 
-#hospitals = pd.read_csv('./Downloads/ehealth.csv')
+hospitals = pd.read_csv('ehealth.csv')
 #st.title("Moringa Project")  # add a title
 #st.write(hospitals) 
 # Preview the dataset 
@@ -310,7 +310,7 @@ normal_beds['bed_ratio_per_10000pop'] = normal_beds['no_of_beds'] * 10000 * 1.0 
 normal_beds.sort_values(by='bed_ratio_per_10000pop', ascending=1).head()
 
 normal_beds.plot.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(20,10))
-st.bar_chart(normal_beds)
+st.bar(normal_beds)
 
 """Kwale county lies slightly below the acceptable number of beds per 10000 population(5 beds per 10000 population). This is in accordance with World Health Organization report."""
 
