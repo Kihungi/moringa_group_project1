@@ -386,7 +386,7 @@ chart_data = pd.DataFrame(hospitals_icu_beds,columns=['no_of_icu_beds'])
 st.bar_chart(chart_data)
 
 # counties with no icu beds
-hospitals_icu_beds.loc[hospitals_icu_beds['no_of_icu_beds'] != 0, ['county', 'no_of_icu_beds']]
+#hospitals_icu_beds.loc[hospitals_icu_beds['no_of_icu_beds'] != 0, ['county', 'no_of_icu_beds']]
 
 """Very few hospitals countrywide offer icu services. Nairobi has the highest number of ICU beds. Counties such as Mandera, Marsabit, Nyamira, Nyandarua , Siaya, Tana River, Turkana, Wajir and Vihiga had no icu services as of March 2020.
 
