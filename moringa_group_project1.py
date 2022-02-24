@@ -313,7 +313,7 @@ normal_beds.plot.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(20,10
 normal_beds = normal_beds.set_index('county')
 st.write(normal_beds)
 chart_data = pd.DataFrame(normal_beds,columns=['bed_ratio_per_10000pop'])
-st.bar_chart(chart_data, width=10, height=10)
+st.bar_chart(chart_data)
 
 """Kwale county lies slightly below the acceptable number of beds per 10000 population(5 beds per 10000 population). This is in accordance with World Health Organization report."""
 
@@ -321,7 +321,11 @@ st.bar_chart(chart_data, width=10, height=10)
 cots = hospitals.groupby(['county'], as_index=False)[['no_of_cots']].sum()
 cots.sort_values(by='no_of_cots').head()
 cots.plot.bar('county', 'no_of_cots', width=1, figsize=(10,5), grid=True)
-st.bar_chart(cots)
+cots = cots.set_index('county')
+st.write(cots)
+chart_data = pd.DataFrame(cots,columns=['no_of_cots'])
+st.bar_chart(chart_data)
+
 """ii.) Ratio of hospitals to population per county"""
 
 no_of_hospitals = hospitals.groupby(['county', 'total_population', 'core_health_workforce_per_10,000_population'], as_index=False)[['facility_code']].count()
@@ -333,7 +337,10 @@ no_of_hospitals['hospital_pop_ratio'] = no_of_hospitals['no_of_hospitals']*1.0/ 
 no_of_hospitals.sort_values(by='hospital_pop_ratio', ascending=1).head()
 
 no_of_hospitals.plot.bar('county', 'hospital_pop_ratio', width=1, figsize=(15,9), grid=True)
-st.bar_chart(no_of_hospitals)
+normal_beds = normal_beds.set_index('county')
+st.write(normal_beds)
+chart_data = pd.DataFrame(normal_beds,columns=['hospital_pop_ratio'])
+st.bar_chart(chart_data)
 
 """iii.) Find the county with lowest number of core_health_workforce_per_10,000_population."""
 
