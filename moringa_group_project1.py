@@ -469,7 +469,10 @@ total_facilities['private_hospitals_%'] = 100 -  total_facilities['no_of_gvt_hos
 total_facilities.sort_values(by='no_of_gvt_hospitals_%', ascending=1).head()
 
 total_facilities.plot.bar('county', 'no_of_gvt_hospitals_%', width=1, figsize=(15,9), grid=True)
-st.bar_chart(total_facilities)
+total_facilities = total_facilities.set_index('county')
+st.write(total_facilities)
+chart_data = pd.DataFrame(total_facilities,columns=['no_of_gvt_hospitals_%'])
+st.bar_chart(chart_data)
 """Only 5.9% of the hospitals in Nairobi are government hospitals. Government hospitals offer free medical services with only a small charge which is more affordable to the public compared to private hospitals:
 Private hospital inpatient fees averages at 9500/- while public hospital inpatient fees averages at 
 4000/-. 
@@ -477,9 +480,12 @@ Private hospitals ICU charges averages at 30k while public hospital ICU charges 
 Maternal charges for private hospitals averages at 200k. 
 """
 
-# Find hospital with lowest number of government hospitals
+# Find hospital with highest number of private hospitals
 total_facilities.plot.bar('county', 'private_hospitals_%', width=1, figsize=(15,9), grid=True)
-st.bar_chart(total_facilities)
+total_facilities = total_facilities.set_index('county')
+st.write(total_facilities)
+chart_data = pd.DataFrame(total_facilities,columns=['private_hospitals_%'])
+st.bar_chart(chart_data)
 """Lamu, Isiolo, Tana River, Mandera and Vihiga have less than 100 hospitals despite having a population of more than 100000. Moreover, there are few healthworkers in each hospital. This implies that the ratio of health workers to the total population is also small. """
 
 # number of antiretroviral therapy per county
@@ -487,24 +493,36 @@ art_ = hospitals[(hospitals['art']=='Y') & (hospitals['operational_status']=='Op
 art_ = art_.groupby('county',as_index=False)['facility_code'].count()
 art_.sort_values(by='facility_code', ascending=1).head()
 art_.plot.bar(x='county', y='facility_code', width=1, figsize=(15,5), grid=True)
-st.bar_chart(art_)
+art_ = art_.set_index('county')
+st.write(art_)
+chart_data = pd.DataFrame(art_,columns=['facility_code'])
+st.bar_chart(chart_data)
 # number of family practitioners per county
 fp_= hospitals[(hospitals['fp']=='Y') & (hospitals['operational_status']=='Operational')]
 fp_ = fp_.groupby('county',as_index=False)['facility_code'].count()
 fp_.sort_values(by='facility_code', ascending=1).head()
 fp_.plot.bar(x='county', y='facility_code', width=1, figsize=(15,5), grid=True)
-st.bar_chart(fp_)
+fp_ = fp_.set_index('county')
+st.write(fp_)
+chart_data = pd.DataFrame(fp_,columns=['facility_code'])
+st.bar_chart(chart_data)
 # number of haemoglobin testing per county
 hbc_= hospitals[(hospitals['hbc']=='Y') & (hospitals['operational_status']=='Operational')]
 hbc_ = hbc_.groupby('county',as_index=False)['facility_code'].count()
 hbc_.sort_values(by='facility_code', ascending=1).head()
 hbc_.plot.bar('county', 'facility_code', width=1, figsize=(15,5), grid=True)
-st.bar_chart(hbc_)
+hbc_ =hbc_.set_index('county')
+st.write(hbc_)
+chart_data = pd.DataFrame(hbc_,columns=['facility_code'])
+st.bar_chart(chart_data)
 
 # number of intermmitent peritoneal dialysis per county
 ipd_= hospitals[(hospitals['ipd']=='Y') & (hospitals['operational_status']=='Operational')]
 ipd_ = ipd_.groupby('county',as_index=False)['facility_code'].count()
 ipd_.sort_values(by='facility_code', ascending=1).head().head()
 ipd_.plot.bar('county', 'facility_code', width=1, figsize=(15,5), grid=True)
-st.bar_chart(ipd_)
+ipd_ =ipd_.set_index('county')
+st.write(ipd_)
+chart_data = pd.DataFrame(ipd_,columns=['facility_code'])
+st.bar_chart(chart_data)
 """Nairobi county has the highest number of resources."""
