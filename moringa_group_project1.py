@@ -348,7 +348,7 @@ st.bar_chart(chart_data)
 
 # Sort by core_health_workforce_per_10,000_population in the no_of_hospitals dataframe.
 no_of_hospitals.sort_values(by='core_health_workforce_per_10,000_population', ascending=1).head()
-no_of_hospitals.plot.bar('county', 'core_health_workforce_per_10,000_population', width=1, figsize=(15,9), grid=True)
+no_of_hospitals.plot.bar()
 no_of_hospitals = no_of_hospitals.set_index('county')
 st.write(no_of_hospitals)
 chart_data = pd.DataFrame(no_of_hospitals,columns=['core_health_workforce_per_10,000_population'])
