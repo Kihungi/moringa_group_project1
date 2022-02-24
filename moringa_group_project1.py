@@ -316,6 +316,7 @@ plt.plot(x, y)
 plt.title('Number of Beds Per 10000 Population')
 plt.xlabel('county')
 plt.ylabel('bed_ratio_per_10000pop')
+plt.show()
 normal_beds = normal_beds.set_index('county')
 st.write(normal_beds)
 chart_data = pd.DataFrame(normal_beds,columns=['bed_ratio_per_10000pop'])
@@ -374,7 +375,10 @@ opened_24_hrs = hospitals[hospitals['open_24_hours'].map(lambda open_24_hours: '
 opened_24_hrs = opened_24_hrs.groupby(['county', 'total_population'], as_index=False)[['open_24_hours']].count()
 opened_24_hrs.sort_values(by='open_24_hours', ascending=1).head()
 opened_24_hrs.plot.bar('county', 'open_24_hours', width=1, figsize=(15,9), grid=True)
-
+opened_24_hrs = opened_24_hrs.set_index('county')
+st.write(opened_24_hrs)
+chart_data = pd.DataFrame(opened_24_hrs,columns=['open_24_hours'])
+st.bar_chart(chart_data)
 """Nairobi has the largest number of hospitals opening 24hrs. Lamu has the least number of hospitals that can attend to night emergencies.
 
 v.) Determining the number of ICU beds per county.
