@@ -481,8 +481,9 @@ Maternal charges for private hospitals averages at 200k.
 """
 
 # Find hospital with highest number of private hospitals
-total_facilities.plot.bar('county', 'private_hospitals_%', width=1, figsize=(15,9), grid=True)
-total_facilities = total_facilities.set_index('county')
+total_facilities.plot.bar()
+# 'county', 'private_hospitals_%', width=1, figsize=(15,9), grid=True
+#total_facilities = total_facilities.set_index('county')
 st.write(total_facilities)
 chart_data = pd.DataFrame(total_facilities,columns=['private_hospitals_%'])
 st.bar_chart(chart_data)
