@@ -309,7 +309,8 @@ normal_beds.sort_values(by='no_of_beds', ascending=False).head()
 normal_beds['bed_ratio_per_10000pop'] = normal_beds['no_of_beds'] * 10000 * 1.0 / normal_beds['total_population']
 normal_beds.sort_values(by='bed_ratio_per_10000pop', ascending=1).head()
 
-plt.plot.bar(x = 'county', y = 'bed_ratio_per_10000pop', width=1, figsize=(20,10))
+normal_beds.plot.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(20,10))
+plt.plot(county, bed_ratio_per_10000pop)
 plt.title('Number of Beds Per 10000 Population')
 plt.xlabel('county')
 plt.ylabel('bed_ratio_per_10000pop')
