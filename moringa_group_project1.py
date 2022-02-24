@@ -476,10 +476,9 @@ total_facilities = total_facilities.set_index('county')
 st.write(total_facilities)
 chart_data = pd.DataFrame(total_facilities,columns=['no_of_gvt_hospitals_%'])
 st.bar_chart(chart_data)
-"""Only 5.9% of the hospitals in Nairobi are government hospitals. Government hospitals offer free medical services with only a small charge which is more affordable to the public compared to private hospitals:
-Private hospital inpatient fees averages at 9500/- while public hospital inpatient fees averages at 
-4000/-. 
-Private hospitals ICU charges averages at 30k while public hospital ICU charges averages at  
+"""Only 11.99% of the hospitals in Nairobi are government hospitals. Government hospitals offer free medical services with only a small charge which is more affordable to the public compared to private hospitals:
+Private hospital inpatient fees averages at 9500/- and 4000/- in a public hospital.
+Private hospitals ICU charges averages at 30k.  
 Maternal charges for private hospitals averages at 200k. 
 """
 
