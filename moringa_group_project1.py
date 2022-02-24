@@ -24,13 +24,19 @@ import matplotlib.pyplot as plt
 
 # importing streamlit
 import streamlit as st
+
+# importing seaborn
+import seaborn as sns
+st.title('GROUP 1 FINAL PROJECT')
+
 """
 # Loading the dataset to our environment"""
 
 # Loading the healthcare facilities dataset
 # url = 'https://africaopendata.org/dataset/3e95b5cb-39f5-44d3-94b6-f2d5285b0478/resource/0257f153-7228-49ef-b330-8e8ed3c7c7e8/download/ehealth-kenya-facilities-download-21102015.xls'
 
-st.title("Moringa Project")  # add a title
+st.title("KENYA HEALTHCARE FACILITIES ANALYSIS")  # add a title
+st.write("Hospitals Dataset")
 uploaded_file = st.file_uploader("Chooose a file")
 if uploaded_file is not None:
    hospitals = pd.read_csv(uploaded_file)
@@ -303,8 +309,8 @@ normal_beds.sort_values(by='no_of_beds', ascending=False).head()
 normal_beds['bed_ratio_per_10000pop'] = normal_beds['no_of_beds'] * 10000 * 1.0 / normal_beds['total_population']
 normal_beds.sort_values(by='bed_ratio_per_10000pop', ascending=1).head()
 
-
-#normal_beds.plot.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(20,10))
+normal_beds.plot.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(20,10))
+st.bar_chart(normal_beds)
 
 """Kwale county lies slightly below the acceptable number of beds per 10000 population(5 beds per 10000 population). This is in accordance with World Health Organization report."""
 
@@ -312,7 +318,7 @@ normal_beds.sort_values(by='bed_ratio_per_10000pop', ascending=1).head()
 cots = hospitals.groupby(['county'], as_index=False)[['no_of_cots']].sum()
 cots.sort_values(by='no_of_cots').head()
 cots.plot.bar('county', 'no_of_cots', width=1, figsize=(10,5), grid=True)
-
+st.bar_chart(cots)
 """ii.) Ratio of hospitals to population per county"""
 
 no_of_hospitals = hospitals.groupby(['county', 'total_population', 'core_health_workforce_per_10,000_population'], as_index=False)[['facility_code']].count()
@@ -324,6 +330,7 @@ no_of_hospitals['hospital_pop_ratio'] = no_of_hospitals['no_of_hospitals']*1.0/ 
 no_of_hospitals.sort_values(by='hospital_pop_ratio', ascending=1).head()
 
 no_of_hospitals.plot.bar('county', 'hospital_pop_ratio', width=1, figsize=(15,9), grid=True)
+st.bar_chart(no_of_hospitals)
 
 """iii.) Find the county with lowest number of core_health_workforce_per_10,000_population."""
 
@@ -332,7 +339,7 @@ no_of_hospitals.plot.bar('county', 'hospital_pop_ratio', width=1, figsize=(15,9)
 # Add the column core_health_workforce_per_10,000_population to the no_of_hospitals dataframe.
 no_of_hospitals.sort_values(by='core_health_workforce_per_10,000_population', ascending=1).head()
 no_of_hospitals.plot.bar('county', 'core_health_workforce_per_10,000_population', width=1, figsize=(15,9), grid=True)
-
+st.bar_chart(no_of_hospitals)
 """The minimum number of healthworkforce as stated by WHO is a minimum of 4.45 healthworkers for 10000 population. This criteria has been met successfully with Mandera having the least ratio of 5.2. """
 
 no_of_hospitals['healthworker_to_pop_ratio'] = 10000/ no_of_hospitals['core_health_workforce_per_10,000_population']
@@ -347,6 +354,7 @@ opened_24_hrs = hospitals[hospitals['open_24_hours'].map(lambda open_24_hours: '
 opened_24_hrs = opened_24_hrs.groupby(['county', 'total_population'], as_index=False)[['open_24_hours']].count()
 opened_24_hrs.sort_values(by='open_24_hours', ascending=1).head()
 opened_24_hrs.plot.bar('county', 'open_24_hours', width=1, figsize=(15,9), grid=True)
+st.bar_chart(opened_24_hrs)
 
 """Nairobi has the largest number of hospitals opening 24hrs. Lamu has the least number of hospitals that can attend to night emergencies.
 
@@ -355,6 +363,7 @@ v.) Determining the number of ICU beds per county.
 
 hospitals_icu_beds = hospitals.groupby(['county'], as_index=False)[['no_of_icu_beds']].sum()
 hospitals_icu_beds.plot.bar('county', 'no_of_icu_beds', width=1, figsize=(15,9), grid=True)
+st.bar_chart(hospitals_icu_beds)
 
 # counties with no icu beds
 hospitals_icu_beds.loc[hospitals_icu_beds['no_of_icu_beds'] != 0, ['county', 'no_of_icu_beds']]
@@ -373,7 +382,7 @@ hospitals_below_threshold =hospitals_beds[hospitals_beds['bed_ratio_per_10000pop
 hospitals_below_threshold.sort_values(by='bed_ratio_per_10000pop', ascending=1)
 
 hospitals_beds.plot.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(15,9), grid=True)
-
+st.bar_chart(hospitals_beds)
 """<b>Mandera, Kilfi, Wajir, Nandi, Tan River, Turkana, Siaya, Nyandarua, Bomet, Kitui, Baringo, Lamu, Kajiado, Busia, Marsabit, Vihiga, Kwale, Laikipia, Nyamira, Migori and Narok</b> counties lie below the accpetable standard of 20 beds per 10000 population. Mandera has the list ratio of 5.106881.
 
 vi.) The percentage (%) of private and government owned hospitals per county.
@@ -402,14 +411,16 @@ print(priv_count)
 # Visualize all types of hospitals on graph
 hos_types = hospitals['owner'].value_counts()
 hos_types.plot.bar(grid=True)
+st.bar_chart(hos_types)
 
 # visualize types of government hospitals on a bar graph.
 gvt_count.plot.bar(grid=True)
+st.bar_chart(gvt_count)
 # print the counts
 #print(gvt_count)
 
 priv_count.plot.bar(figsize=(8,5), grid=True)
-
+st.bar_chart(priv_count)
 # To find the percentage (%) of private and government owned hospitals per county.
 total_facilities = hospitals.groupby(['county','core_health_workforce_per_10,000_population','total_population'],
                                      as_index=False)[['facility_code']].count()
@@ -434,7 +445,7 @@ total_facilities['private_hospitals_%'] = 100 -  total_facilities['no_of_gvt_hos
 total_facilities.sort_values(by='no_of_gvt_hospitals_%', ascending=1).head()
 
 total_facilities.plot.bar('county', 'no_of_gvt_hospitals_%', width=1, figsize=(15,9), grid=True)
-
+st.bar_chart(total_facilities)
 """Only 5.9% of the hospitals in Nairobi are government hospitals. Government hospitals offer free medical services with only a small charge which is more affordable to the public compared to private hospitals:
 Private hospital inpatient fees averages at 9500/- while public hospital inpatient fees averages at 
 4000/-. 
@@ -444,7 +455,7 @@ Maternal charges for private hospitals averages at 200k.
 
 # Find hospital with lowest number of government hospitals
 total_facilities.plot.bar('county', 'private_hospitals_%', width=1, figsize=(15,9), grid=True)
-
+st.bar_chart(total_facilities)
 """Lamu, Isiolo, Tana River, Mandera and Vihiga have less than 100 hospitals despite having a population of more than 100000. Moreover, there are few healthworkers in each hospital. This implies that the ratio of health workers to the total population is also small. """
 
 # number of antiretroviral therapy per county
@@ -452,23 +463,24 @@ art_ = hospitals[(hospitals['art']=='Y') & (hospitals['operational_status']=='Op
 art_ = art_.groupby('county',as_index=False)['facility_code'].count()
 art_.sort_values(by='facility_code', ascending=1).head()
 art_.plot.bar(x='county', y='facility_code', width=1, figsize=(15,5), grid=True)
-
+st.bar_chart(art_)
 # number of family practitioners per county
 fp_= hospitals[(hospitals['fp']=='Y') & (hospitals['operational_status']=='Operational')]
 fp_ = fp_.groupby('county',as_index=False)['facility_code'].count()
 fp_.sort_values(by='facility_code', ascending=1).head()
 fp_.plot.bar(x='county', y='facility_code', width=1, figsize=(15,5), grid=True)
-
+st.bar_chart(fp_)
 # number of haemoglobin testing per county
 hbc_= hospitals[(hospitals['hbc']=='Y') & (hospitals['operational_status']=='Operational')]
 hbc_ = hbc_.groupby('county',as_index=False)['facility_code'].count()
 hbc_.sort_values(by='facility_code', ascending=1).head()
 hbc_.plot.bar('county', 'facility_code', width=1, figsize=(15,5), grid=True)
+st.bar_chart(hbc_)
 
 # number of intermmitent peritoneal dialysis per county
 ipd_= hospitals[(hospitals['ipd']=='Y') & (hospitals['operational_status']=='Operational')]
 ipd_ = ipd_.groupby('county',as_index=False)['facility_code'].count()
 ipd_.sort_values(by='facility_code', ascending=1).head().head()
 ipd_.plot.bar('county', 'facility_code', width=1, figsize=(15,5), grid=True)
-
+st.bar_chart(ipd_)
 """Nairobi county has the highest number of resources."""
