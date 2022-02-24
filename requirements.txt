@@ -337,7 +337,7 @@ pytz-deprecation-shim==0.1.0.post0
     # via
     #   -r requirements.txt
     #   jupyter-core
-pywinpty==2.0.2
+#pywinpty==2.0.2
     # via
     #   -r requirements.txt
     #   terminado
