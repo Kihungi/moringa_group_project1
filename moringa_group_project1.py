@@ -309,7 +309,7 @@ normal_beds.sort_values(by='no_of_beds', ascending=False).head()
 normal_beds['bed_ratio_per_10000pop'] = normal_beds['no_of_beds'] * 10000 * 1.0 / normal_beds['total_population']
 normal_beds.sort_values(by='bed_ratio_per_10000pop', ascending=1).head()
 
-normal_beds.plot.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(20,10))
+normal_beds.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(20,10))
 x = normal_beds['county']
 y = normal_beds['bed_ratio_per_10000pop']
 plt.plot(x, y) 
@@ -386,7 +386,10 @@ v.) Determining the number of ICU beds per county.
 
 hospitals_icu_beds = hospitals.groupby(['county'], as_index=False)[['no_of_icu_beds']].sum()
 hospitals_icu_beds.plot.bar('county', 'no_of_icu_beds', width=1, figsize=(15,9), grid=True)
-st.bar_chart(hospitals_icu_beds)
+hospitals_icu_beds = hospitals_icu_beds.set_index('county')
+st.write(hospitals_icu_beds)
+chart_data = pd.DataFrame(hospitals_icu_beds,columns=['no_of_icu_beds'])
+st.bar_chart(chart_data)
 
 # counties with no icu beds
 hospitals_icu_beds.loc[hospitals_icu_beds['no_of_icu_beds'] != 0, ['county', 'no_of_icu_beds']]
@@ -405,7 +408,10 @@ hospitals_below_threshold =hospitals_beds[hospitals_beds['bed_ratio_per_10000pop
 hospitals_below_threshold.sort_values(by='bed_ratio_per_10000pop', ascending=1)
 
 hospitals_beds.plot.bar('county', 'bed_ratio_per_10000pop', width=1, figsize=(15,9), grid=True)
-st.bar_chart(hospitals_beds)
+hospitals_beds = hospitals_beds.set_index('county')
+st.write(hospitals_beds)
+chart_data = pd.DataFrame(hospitals_beds,columns=['bed_ratio_per_10000pop'])
+st.bar_chart(chart_data)
 """<b>Mandera, Kilfi, Wajir, Nandi, Tan River, Turkana, Siaya, Nyandarua, Bomet, Kitui, Baringo, Lamu, Kajiado, Busia, Marsabit, Vihiga, Kwale, Laikipia, Nyamira, Migori and Narok</b> counties lie below the accpetable standard of 20 beds per 10000 population. Mandera has the list ratio of 5.106881.
 
 vi.) The percentage (%) of private and government owned hospitals per county.
