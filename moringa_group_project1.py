@@ -300,8 +300,8 @@ i.) Which county has the highest number of medical resources?
 # beds
 
 # Group data by county while summing number of beds
-st.dataframe(normal_beds) = hospitals.groupby(['county', 'total_population'], as_index=False)[['no_of_beds']].sum()
-
+normal_beds = hospitals.groupby(['county', 'total_population'], as_index=False)[['no_of_beds']].sum()
+st.dataframe(normal_beds)
 # Sort values by no of beds.
 normal_beds.sort_values(by='no_of_beds', ascending=False).head()
 
